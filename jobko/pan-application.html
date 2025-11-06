@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover">
+    <title>SovereignCitizen - PAN</title>
+    <link rel="stylesheet" href="fonts/fonts.css">
+    <link rel="stylesheet" href="fonts/font-icons.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+    <link rel="shortcut icon" href="images/logo/168.png" />
+    <script>
+      if (localStorage.toggled === "dark-theme") {
+        document.documentElement.classList.add('dark-theme');
+      }
+    </script>
+</head>
+<body>
+  <div class="header fixed-top header-st2">
+    <div class="left">
+      <a href="index.html" class="icon"><i class="icon-arr-left"></i></a>
+    </div>
+    <h4 data-i18n="pan_title">PAN Application (Form 49A / Instant e-PAN)</h4>
+    <div class="right">
+      <div class="dropdown">
+        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Lang</button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#" onclick="SovereignI18N.setLanguage('en')">English</a></li>
+          <li><a class="dropdown-item" href="#" onclick="SovereignI18N.setLanguage('hi')">हिन्दी</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-content style-3">
+    <div class="tf-container">
+      <form id="panForm" class="mt-24">
+        <div class="form-field">
+          <label class="label" for="aadhaar" data-i18n="aadhaar_number">Aadhaar Number</label>
+          <input id="aadhaar" name="aadhaar" type="tel" maxlength="12" inputmode="numeric" class="form-control" placeholder="123412341234" aria-describedby="tt-aadhaar">
+          <small id="tt-aadhaar" class="text-dark-4" data-i18n="tooltip_aadhaar">Mandatory for e-KYC and Instant e-PAN generation.</small>
+        </div>
+
+        <div class="mt-16 form-field">
+          <label class="label" for="fullname" data-i18n="full_name_aadhaar">Full name (as per Aadhaar)</label>
+          <input id="fullname" name="fullname" type="text" class="form-control" aria-describedby="tt-fullname">
+          <small id="tt-fullname" class="text-dark-4" data-i18n="tooltip_fullname">Must match your name exactly as per your Aadhaar card to avoid application rejection and unnecessary charges.</small>
+        </div>
+
+        <div class="mt-16 form-field">
+          <label class="label" for="dob" data-i18n="dob">Date of Birth</label>
+          <input id="dob" name="dob" type="date" class="form-control" aria-describedby="tt-dob">
+          <small id="tt-dob" class="text-dark-4" data-i18n="tooltip_dob">If applying for Instant e-PAN, ensure you are not a minor.</small>
+        </div>
+
+        <div class="mt-16 form-field">
+          <label class="label" for="address" data-i18n="residential_address">Residential Address</label>
+          <textarea id="address" name="address" rows="3" class="form-control" aria-describedby="tt-addr"></textarea>
+          <small id="tt-addr" class="text-dark-4" data-i18n="tooltip_address">Use the address reflected on your Proof of Address (PoA). Utility bills should be recent (less than 3 months old).</small>
+        </div>
+
+        <div class="mt-16 form-field">
+          <label class="label" for="email" data-i18n="email">Communication Email ID</label>
+          <input id="email" name="email" type="email" class="form-control" aria-describedby="tt-email">
+          <small id="tt-email" class="text-dark-4" data-i18n="tooltip_email">Your e-PAN (the soft copy) will be sent to this email address within 48 hours.</small>
+        </div>
+
+        <div class="mt-16 form-field">
+          <div class="label" data-i18n="application_type">Application Type</div>
+          <div class="d-flex gap-16 mt-12">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="apptype" id="epan" value="epan" checked>
+              <label class="form-check-label" for="epan" data-i18n="application_type_epan">Instant e-PAN (FREE)</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="apptype" id="physical" value="physical">
+              <label class="form-check-label" for="physical" data-i18n="application_type_physical">Physical PAN (fee approx. ₹107)</label>
+            </div>
+          </div>
+          <small class="text-dark-4" data-i18n="tooltip_app_type">Instant e-PAN is FREE and quick but only provides a soft copy. Physical Card requires a nominal fee and dispatch.</small>
+        </div>
+
+        <div class="mt-16 form-check">
+          <input class="form-check-input" type="checkbox" id="decl" required>
+          <label class="form-check-label" for="decl" data-i18n="declaration_multi_pan">I declare that I do not hold any other PAN.</label>
+        </div>
+
+        <div class="mt-24 p-12 bg-surface rounded-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <strong data-i18n="cost_section">Official Cost</strong>
+            <span id="costVal" class="badge bg-primary" data-i18n="cost_free">₹0 (Instant e-PAN)</span>
+          </div>
+        </div>
+
+        <div class="fixed-button">
+          <button type="button" id="btnSave" class="tf-btn outline" data-i18n="save_continue">Save & Continue</button>
+          <button type="button" id="btnGenerate" class="tf-btn primary" data-i18n="generate_output">Generate Output</button>
+        </div>
+      </form>
+
+      <div class="mt-24">
+        <a id="officialLink" class="btn btn-link" href="https://www.incometax.gov.in/iec/foportal/" target="_blank" rel="noopener" data-i18n="go_official_portal">Go to official portal</a>
+      </div>
+      <div class="mt-12">
+        <button id="btnClear" class="btn btn-sm btn-danger" type="button" data-i18n="clear_sensitive">Clear Sensitive Data</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/sovereign-i18n.js"></script>
+  <script type="text/javascript" src="js/sovereign-security.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('panForm');
+      var costVal = document.getElementById('costVal');
+      var official = document.getElementById('officialLink');
+      var STORAGE_KEY = 'sc_pan_form_v1';
+
+      function updateCost() {
+        var type = (form.apptype.value || 'epan');
+        if (type === 'epan') {
+          costVal.setAttribute('data-i18n', 'cost_free');
+          costVal.textContent = SovereignI18N.t('cost_free');
+          official.href = 'https://www.incometax.gov.in/iec/foportal/';
+        } else {
+          costVal.setAttribute('data-i18n', 'cost_physical_pan');
+          costVal.textContent = SovereignI18N.t('cost_physical_pan');
+          official.href = 'https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html';
+        }
+      }
+
+      form.addEventListener('change', function (e) {
+        if (e.target && e.target.name === 'apptype') updateCost();
+      });
+      updateCost();
+
+      document.getElementById('btnSave').addEventListener('click', function () {
+        var data = {
+          aadhaar: form.aadhaar.value.trim(),
+          fullname: form.fullname.value.trim(),
+          dob: form.dob.value,
+          address: form.address.value.trim(),
+          email: form.email.value.trim(),
+          apptype: form.apptype.value,
+          decl: document.getElementById('decl').checked
+        };
+        SovereignSecurity.saveEncrypted(STORAGE_KEY, data).then(function () {
+          alert('Saved locally (encrypted).');
+        });
+      });
+
+      document.getElementById('btnGenerate').addEventListener('click', function () {
+        SovereignSecurity.loadDecrypted(STORAGE_KEY).then(function (data) {
+          if (!data) {
+            // fall back to current form values
+            data = {
+              aadhaar: form.aadhaar.value.trim(),
+              fullname: form.fullname.value.trim(),
+              dob: form.dob.value,
+              address: form.address.value.trim(),
+              email: form.email.value.trim(),
+              apptype: form.apptype.value,
+              decl: document.getElementById('decl').checked
+            };
+          }
+          var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'pan_application_data.json';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          SovereignSecurity.clear(STORAGE_KEY);
+          alert('Output generated. Sensitive data cleared.');
+        });
+      });
+
+      document.getElementById('btnClear').addEventListener('click', function () {
+        SovereignSecurity.clear(STORAGE_KEY);
+        alert('Cleared.');
+      });
+
+      SovereignSecurity.loadDecrypted(STORAGE_KEY).then(function (data) {
+        if (data) {
+          form.aadhaar.value = data.aadhaar || '';
+          form.fullname.value = data.fullname || '';
+          form.dob.value = data.dob || '';
+          form.address.value = data.address || '';
+          form.email.value = data.email || '';
+          if (data.apptype) {
+            var el = document.querySelector('input[name="apptype"][value="' + data.apptype + '"]');
+            if (el) el.checked = true;
+          }
+          document.getElementById('decl').checked = !!data.decl;
+          updateCost();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover">
+  <title>SovereignCitizen - Passport</title>
+  <link rel="stylesheet" href="fonts/fonts.css">
+  <link rel="stylesheet" href="fonts/font-icons.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/swiper-bundle.min.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+  <link rel="shortcut icon" href="images/logo/168.png" />
+  <script>
+    if (localStorage.toggled === "dark-theme") {
+      document.documentElement.classList.add('dark-theme');
+    }
+  </script>
+</head>
+<body>
+  <div class="header fixed-top header-st2">
+    <div class="left">
+      <a href="index.html" class="icon"><i class="icon-arr-left"></i></a>
+    </div>
+    <h4 data-i18n="passport_title">Passport Application Preparation (Normal Scheme)</h4>
+    <div class="right">
+      <div class="dropdown">
+        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Lang</button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#" onclick="SovereignI18N.setLanguage('en')">English</a></li>
+          <li><a class="dropdown-item" href="#" onclick="SovereignI18N.setLanguage('hi')">हिन्दी</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-content style-3">
+    <div class="tf-container">
+      <form id="ppForm" class="mt-24">
+        <div class="form-field">
+          <label class="label" for="rpo" data-i18n="rpo">Regional Passport Office (RPO)</label>
+          <select id="rpo" name="rpo" class="form-select" aria-describedby="tt-rpo">
+            <option value="" selected disabled>-- Select RPO --</option>
+            <option>Ahmedabad</option>
+            <option>Bengaluru</option>
+            <option>Bhopal</option>
+            <option>Chandigarh</option>
+            <option>Chennai</option>
+            <option>Delhi</option>
+            <option>Hyderabad</option>
+            <option>Jaipur</option>
+            <option>Kolkata</option>
+            <option>Mumbai</option>
+            <option>Pune</option>
+          </select>
+          <small id="tt-rpo" class="text-dark-4" data-i18n="tip_rpo">Select the RPO based on your current residential address. This cannot be changed later.</small>
+        </div>
+
+        <div class="mt-16 form-check">
+          <input class="form-check-input" type="checkbox" id="isMinor">
+          <label class="form-check-label" for="isMinor" data-i18n="is_minor">Is Applicant a Minor?</label>
+          <div class="mt-8"><small class="text-dark-4" data-i18n="tip_minor">If Minor, Annexure D is MANDATORY. The fee is lower, and validity is shorter (5 years or till age 18).</small></div>
+        </div>
+
+        <div class="mt-16 form-field">
+          <label class="label" for="family" data-i18n="family_details">Applicant Family Details</label>
+          <textarea id="family" name="family" rows="3" class="form-control" placeholder="Father/Mother/Spouse names as per documents"></textarea>
+          <small class="text-dark-4">Ensure names match the source documents precisely.</small>
+        </div>
+
+        <div class="mt-16">
+          <div class="label" data-i18n="present_address_proof">Present Address Proof</div>
+          <div class="form-check mt-8">
+            <input class="form-check-input" type="checkbox" id="poa1" value="Aadhaar">
+            <label class="form-check-label" for="poa1">Aadhaar</label>
+          </div>
+          <div class="form-check mt-8">
+            <input class="form-check-input" type="checkbox" id="poa2" value="Utility Bill (<=3 months)">
+            <label class="form-check-label" for="poa2">Utility Bill (≤3 months)</label>
+          </div>
+          <div class="form-check mt-8">
+            <input class="form-check-input" type="checkbox" id="poa3" value="Bank Passbook/Statement">
+            <label class="form-check-label" for="poa3">Bank Passbook/Statement</label>
+          </div>
+          <small class="text-dark-4" data-i18n="tip_present_address">Gather at least two proofs of address (e.g., Water Bill + Bank Passbook) that are current and reflect the selected RPO jurisdiction.</small>
+        </div>
+
+        <div class="mt-24 p-12 bg-surface rounded-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <strong data-i18n="fee_reminder">Passport Fee Reminder</strong>
+            <span class="badge bg-primary" data-i18n="cost_passport_normal">₹1,500 (Normal, 36 pages)</span>
+          </div>
+          <div class="mt-8"><small class="text-dark-4" data-i18n="tip_fee_pay_gateway">Pay ONLY on the official MEA Passport Seva Portal gateway to secure your appointment. Do not pay any agent a markup.</small></div>
+        </div>
+
+        <div class="mt-16">
+          <div class="label" data-i18n="appointment_guide">Appointment Scheduling Guide</div>
+          <small class="text-dark-4" data-i18n="tip_appointment">After completing the form and paying online, select the nearest PSK/POPSK and book your mandatory appointment.</small>
+        </div>
+
+        <div class="fixed-button">
+          <button type="button" id="btnSave" class="tf-btn outline" data-i18n="save_continue">Save & Continue</button>
+          <button type="button" id="btnGenerate" class="tf-btn primary" data-i18n="generate_output">Generate Output</button>
+        </div>
+      </form>
+
+      <div class="mt-24">
+        <a id="officialLink" class="btn btn-link" href="https://portal2.passportindia.gov.in/AppOnlineProject/welcomeLink" target="_blank" rel="noopener" data-i18n="go_official_portal">Go to official portal</a>
+      </div>
+      <div class="mt-12">
+        <button id="btnClear" class="btn btn-sm btn-danger" type="button" data-i18n="clear_sensitive">Clear Sensitive Data</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/sovereign-i18n.js"></script>
+  <script type="text/javascript" src="js/sovereign-security.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('ppForm');
+      var STORAGE_KEY = 'sc_pp_form_v1';
+
+      function collect() {
+        return {
+          rpo: form.rpo.value,
+          isMinor: document.getElementById('isMinor').checked,
+          family: form.family.value.trim(),
+          poa: [
+            document.getElementById('poa1').checked ? document.getElementById('poa1').value : null,
+            document.getElementById('poa2').checked ? document.getElementById('poa2').value : null,
+            document.getElementById('poa3').checked ? document.getElementById('poa3').value : null
+          ].filter(Boolean)
+        };
+      }
+
+      document.getElementById('btnSave').addEventListener('click', function () {
+        SovereignSecurity.saveEncrypted(STORAGE_KEY, collect()).then(function () {
+          alert('Saved locally (encrypted).');
+        });
+      });
+
+      document.getElementById('btnGenerate').addEventListener('click', function () {
+        SovereignSecurity.loadDecrypted(STORAGE_KEY).then(function (data) {
+          if (!data) data = collect();
+          var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'passport_preparation_data.json';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          SovereignSecurity.clear(STORAGE_KEY);
+          alert('Output generated. Sensitive data cleared.');
+        });
+      });
+
+      document.getElementById('btnClear').addEventListener('click', function () {
+        SovereignSecurity.clear(STORAGE_KEY);
+        alert('Cleared.');
+      });
+
+      SovereignSecurity.loadDecrypted(STORAGE_KEY).then(function (data) {
+        if (data) {
+          if (data.rpo) form.rpo.value = data.rpo;
+          document.getElementById('isMinor').checked = !!data.isMinor;
+          form.family.value = data.family || '';
+          (data.poa || []).forEach(function (v) {
+            var q = 'input[type="checkbox"][value="' + v + '"]';
+            var el = form.querySelector(q);
+            if (el) el.checked = true;
+          });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
+

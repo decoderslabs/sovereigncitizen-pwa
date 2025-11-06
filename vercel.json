@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "name": "sovereigncitizen",
+  "routes": [
+    { "src": "/", "dest": "/jobko/index.html" },
+    { "src": "/(.*)", "dest": "/jobko/$1" }
+  ],
+  "headers": [
+    {
+      "source": "/jobko/_service-worker.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" },
+        { "key": "Service-Worker-Allowed", "value": "/jobko/" }
+      ]
+    },
+    {
+      "source": "/jobko/_manifest.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    }
+  ]
+}
+
+
