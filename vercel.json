@@ -1,9 +1,9 @@
 {
   "version": 2,
   "name": "sovereigncitizen",
-  "routes": [
-    { "src": "/", "dest": "/jobko/index.html" },
-    { "src": "/(.*)", "dest": "/jobko/$1" }
+  "rewrites": [
+    { "source": "/", "destination": "/jobko/index.html" },
+    { "source": "/:path*", "destination": "/jobko/:path*" }
   ],
   "headers": [
     {
