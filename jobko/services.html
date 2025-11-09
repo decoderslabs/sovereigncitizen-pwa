@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover">
+    <link rel="stylesheet" href="fonts/fonts.css">
+    <link rel="stylesheet" href="fonts/font-icons.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/nouislider.min.css" />
+    <link rel="stylesheet" href="css/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+    <link rel="shortcut icon" href="images/logo/168.png" />
+    <link rel="apple-touch-icon-precomposed" href="images/logo/168.png" />
+    <title>SovereignCitizen - Services</title>
+    <script>
+        if (localStorage.toggled === "dark-theme") {
+            document.documentElement.classList.add('dark-theme');
+        }
+    </script>
+</head>
+
+<body>
+    <div class="preload preload-container">
+        <div class="logo-img">
+            <img src="images/logo/logo-dark2.png" alt="">
+        </div>
+        <div class="spinner-circle lg success">
+            <span class="spinner-circle1 spinner-child"></span>
+            <span class="spinner-circle2 spinner-child"></span>
+            <span class="spinner-circle3 spinner-child"></span>
+            <span class="spinner-circle4 spinner-child"></span>
+            <span class="spinner-circle5 spinner-child"></span>
+            <span class="spinner-circle6 spinner-child"></span>
+            <span class="spinner-circle7 spinner-child"></span>
+            <span class="spinner-circle8 spinner-child"></span>
+            <span class="spinner-circle9 spinner-child"></span>
+        </div>
+    </div>
+
+    <div class="header fixed-top">
+        <div class="left">
+            <a href="index.html" class="icon">
+                <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.88986 12.2951L1.60986 7.00008L6.88986 1.70508" stroke="#121927" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </a>
+        </div>
+        <h3>All Services</h3>
+    </div>
+
+    <div class="app-content style-4">
+        <div class="tf-container">
+            <div class="search-box mt-24">
+                <a href="#" class="icon-left">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.5">
+                            <path
+                                d="M9.58317 17.4998C13.9554 17.4998 17.4998 13.9554 17.4998 9.58317C17.4998 5.21092 13.9554 1.6665 9.58317 1.6665C5.21092 1.6665 1.6665 5.21092 1.6665 9.58317C1.6665 13.9554 5.21092 17.4998 9.58317 17.4998Z"
+                                stroke="#121927" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M18.3332 18.3332L16.6665 16.6665" stroke="#121927" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </g>
+                    </svg>
+                </a>
+                <input type="text" id="serviceSearch" class="search-field" placeholder="Search services...">
+            </div>
+
+            <div id="servicesContainer" class="mt-24">
+                <div class="text-center">
+                    <div class="spinner-circle lg">
+                        <span class="spinner-circle1 spinner-child"></span>
+                        <span class="spinner-circle2 spinner-child"></span>
+                        <span class="spinner-circle3 spinner-child"></span>
+                        <span class="spinner-circle4 spinner-child"></span>
+                        <span class="spinner-circle5 spinner-child"></span>
+                        <span class="spinner-circle6 spinner-child"></span>
+                        <span class="spinner-circle7 spinner-child"></span>
+                        <span class="spinner-circle8 spinner-child"></span>
+                        <span class="spinner-circle9 spinner-child"></span>
+                    </div>
+                    <p class="mt-16">Loading services...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script>
+        (function () {
+            var servicesData = [];
+            var filteredServices = [];
+
+            function renderServiceCard(service) {
+                var iconPath = 'images/icon/' + (service.icon || 'web.svg');
+                var bgClass = 'bg-' + (service.color || 'primary');
+                var detailUrl = 'service-detail.html?id=' + encodeURIComponent(service.service_id);
+                
+                // Route known services to their specific pages
+                if (service.service_id === 'pan_new_application') {
+                    detailUrl = 'pan-application.html';
+                } else if (service.service_id === 'passport_fresh_normal') {
+                    detailUrl = 'passport-prep.html';
+                }
+
+                return `
+                    <div class="card-job ${bgClass} mb-20">
+                        <div class="top">
+                            <div class="inner-left">
+                                <div class="logo-box">
+                                    <img src="${iconPath}" alt="${service.service_name}">
+                                </div>
+                                <div class="info">
+                                    <p class="body-2">${service.governing_body}</p>
+                                    <h6 class="title"><a href="${detailUrl}">${service.service_name}</a></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-tag">
+                            <span class="tag body-6">${service.governing_body}</span>
+                            <span class="tag body-6">${service.estimated_self_service_man_hours}</span>
+                        </div>
+                        <div class="bottom">
+                            <div class="inner">
+                                <p class="body-4 text-white-80">${service.brief_description}</p>
+                            </div>
+                            <a href="${detailUrl}" class="btn-apply">
+                                View Details
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.62012 3.95312L13.6668 7.99979L9.62012 12.0465" stroke="white"
+                                        stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M2.3335 8H13.5535" stroke="white" stroke-width="1.5"
+                                        stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function renderServices(services) {
+                var container = document.getElementById('servicesContainer');
+                if (services.length === 0) {
+                    container.innerHTML = '<div class="text-center mt-40"><p class="body-4 text-dark-4">No services found. Try a different search.</p></div>';
+                    return;
+                }
+                container.innerHTML = services.map(renderServiceCard).join('');
+            }
+
+            function filterServices(query) {
+                if (!query || query.trim() === '') {
+                    filteredServices = servicesData;
+                } else {
+                    var q = query.toLowerCase();
+                    filteredServices = servicesData.filter(function (service) {
+                        return service.service_name.toLowerCase().includes(q) ||
+                            service.brief_description.toLowerCase().includes(q) ||
+                            service.governing_body.toLowerCase().includes(q);
+                    });
+                }
+                renderServices(filteredServices);
+            }
+
+            // Load services from JSON
+            fetch('data/services.json')
+                .then(function (response) {
+                    if (!response.ok) throw new Error('Failed to load services');
+                    return response.json();
+                })
+                .then(function (data) {
+                    servicesData = data.services || [];
+                    filteredServices = servicesData;
+                    renderServices(filteredServices);
+                })
+                .catch(function (error) {
+                    console.error('Error loading services:', error);
+                    document.getElementById('servicesContainer').innerHTML =
+                        '<div class="text-center mt-40"><p class="body-4 text-dark-4">Error loading services. Please try again later.</p></div>';
+                });
+
+            // Search functionality
+            var searchInput = document.getElementById('serviceSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', function (e) {
+                    filterServices(e.target.value);
+                });
+            }
+        })();
+    </script>
+</body>
+
+</html>
+

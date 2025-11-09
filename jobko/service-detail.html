@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover">
+    <link rel="stylesheet" href="fonts/fonts.css">
+    <link rel="stylesheet" href="fonts/font-icons.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/nouislider.min.css" />
+    <link rel="stylesheet" href="css/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+    <link rel="shortcut icon" href="images/logo/168.png" />
+    <link rel="apple-touch-icon-precomposed" href="images/logo/168.png" />
+    <title>SovereignCitizen - Service Details</title>
+    <script>
+        if (localStorage.toggled === "dark-theme") {
+            document.documentElement.classList.add('dark-theme');
+        }
+    </script>
+</head>
+
+<body>
+    <div class="preload preload-container">
+        <div class="logo-img">
+            <img src="images/logo/logo-dark2.png" alt="">
+        </div>
+        <div class="spinner-circle lg success">
+            <span class="spinner-circle1 spinner-child"></span>
+            <span class="spinner-circle2 spinner-child"></span>
+            <span class="spinner-circle3 spinner-child"></span>
+            <span class="spinner-circle4 spinner-child"></span>
+            <span class="spinner-circle5 spinner-child"></span>
+            <span class="spinner-circle6 spinner-child"></span>
+            <span class="spinner-circle7 spinner-child"></span>
+            <span class="spinner-circle8 spinner-child"></span>
+            <span class="spinner-circle9 spinner-child"></span>
+        </div>
+    </div>
+
+    <div class="header fixed-top">
+        <div class="left">
+            <a href="services.html" class="icon">
+                <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.88986 12.2951L1.60986 7.00008L6.88986 1.70508" stroke="#121927" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </a>
+        </div>
+        <h3 id="serviceTitle">Service Details</h3>
+    </div>
+
+    <div class="app-content style-4">
+        <div class="tf-container">
+            <div id="serviceDetailContainer" class="mt-24">
+                <div class="text-center">
+                    <div class="spinner-circle lg">
+                        <span class="spinner-circle1 spinner-child"></span>
+                        <span class="spinner-circle2 spinner-child"></span>
+                        <span class="spinner-circle3 spinner-child"></span>
+                        <span class="spinner-circle4 spinner-child"></span>
+                        <span class="spinner-circle5 spinner-child"></span>
+                        <span class="spinner-circle6 spinner-child"></span>
+                        <span class="spinner-circle7 spinner-child"></span>
+                        <span class="spinner-circle8 spinner-child"></span>
+                        <span class="spinner-circle9 spinner-child"></span>
+                    </div>
+                    <p class="mt-16">Loading service details...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script>
+        (function () {
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                var results = regex.exec(location.search);
+                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            }
+
+            function renderServiceDetail(service) {
+                var iconPath = 'images/icon/' + (service.icon || 'web.svg');
+                var startUrl = 'service-detail.html?id=' + encodeURIComponent(service.service_id);
+                
+                // Route known services to their specific pages
+                if (service.service_id === 'pan_new_application') {
+                    startUrl = 'pan-application.html';
+                } else if (service.service_id === 'passport_fresh_normal') {
+                    startUrl = 'passport-prep.html';
+                }
+
+                var docsList = '';
+                if (service.required_documents_brief && Array.isArray(service.required_documents_brief)) {
+                    docsList = service.required_documents_brief.map(function (doc) {
+                        return '<li class="body-4">' + doc + '</li>';
+                    }).join('');
+                }
+
+                return `
+                    <div class="card-job bg-primary mb-24">
+                        <div class="top">
+                            <div class="inner-left">
+                                <div class="logo-box">
+                                    <img src="${iconPath}" alt="${service.service_name}">
+                                </div>
+                                <div class="info">
+                                    <p class="body-2">${service.governing_body}</p>
+                                    <h6 class="title">${service.service_name}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom">
+                            <p class="body-4 text-white-80 mt-16">${service.brief_description}</p>
+                        </div>
+                    </div>
+
+                    <div class="card-box mb-24">
+                        <h5 class="mb-16">Official Fee</h5>
+                        <p class="body-4 text-dark-4">${service.official_fee_note}</p>
+                    </div>
+
+                    <div class="card-box mb-24">
+                        <h5 class="mb-16">Required Documents</h5>
+                        <ul class="list-dot mt-12">
+                            ${docsList}
+                        </ul>
+                    </div>
+
+                    <div class="card-box mb-24">
+                        <h5 class="mb-16">OTP & Authentication</h5>
+                        <p class="body-4 text-dark-4">${service.otp_required_note}</p>
+                    </div>
+
+                    <div class="card-box mb-24">
+                        <h5 class="mb-16">Estimated Time</h5>
+                        <p class="body-4 text-dark-4">${service.estimated_self_service_man_hours}</p>
+                    </div>
+
+                    <div class="fixed-button">
+                        <a href="${service.official_url_guide}" target="_blank" rel="noopener" class="tf-btn outline">Official Portal</a>
+                        <a href="${startUrl}" class="tf-btn primary">Start Application</a>
+                    </div>
+                `;
+            }
+
+            var serviceId = getUrlParameter('id');
+            if (!serviceId) {
+                document.getElementById('serviceDetailContainer').innerHTML =
+                    '<div class="text-center mt-40"><p class="body-4 text-dark-4">Service ID not found. Please select a service.</p><a href="services.html" class="tf-btn primary mt-16">Browse Services</a></div>';
+                return;
+            }
+
+            fetch('data/services.json')
+                .then(function (response) {
+                    if (!response.ok) throw new Error('Failed to load services');
+                    return response.json();
+                })
+                .then(function (data) {
+                    var service = (data.services || []).find(function (s) {
+                        return s.service_id === serviceId;
+                    });
+
+                    if (!service) {
+                        document.getElementById('serviceDetailContainer').innerHTML =
+                            '<div class="text-center mt-40"><p class="body-4 text-dark-4">Service not found.</p><a href="services.html" class="tf-btn primary mt-16">Browse Services</a></div>';
+                        return;
+                    }
+
+                    document.getElementById('serviceTitle').textContent = service.service_name;
+                    document.getElementById('serviceDetailContainer').innerHTML = renderServiceDetail(service);
+                })
+                .catch(function (error) {
+                    console.error('Error loading service:', error);
+                    document.getElementById('serviceDetailContainer').innerHTML =
+                        '<div class="text-center mt-40"><p class="body-4 text-dark-4">Error loading service details. Please try again later.</p><a href="services.html" class="tf-btn primary mt-16">Back to Services</a></div>';
+                });
+        })();
+    </script>
+</body>
+
+</html>
+

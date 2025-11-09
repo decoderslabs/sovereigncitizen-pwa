@@ -1,0 +1,91 @@
+{
+  "services": [
+    {
+      "service_id": "aadhaar_document_update",
+      "service_name": "Aadhaar: Document Update & Management (PoI/PoA)",
+      "brief_description": "Update Proof of Identity (PoI) or Proof of Address (PoA) documents in your Aadhaar record.",
+      "governing_body": "UIDAI",
+      "required_documents_brief": [
+        "Proof of Identity (PoI) Document",
+        "Proof of Address (PoA) Document",
+        "Original copies of supporting documents required for physical center visits"
+      ],
+      "official_fee_note": "Online Document Update via myAadhaar Portal: FREE. Demographic Update (at center only): ₹75. Biometric Update (at center only): ₹100.",
+      "otp_required_note": "MANDATORY. Aadhaar-linked mobile number for OTP authentication (e-KYC) required for all online updates and center appointment booking.",
+      "estimated_self_service_man_hours": "2–8 Hours (Time spent on document collection, form filling, and appointment booking/e-KYC filing).",
+      "official_url_guide": "https://myaadhaar.uidai.gov.in/",
+      "icon": "web.svg",
+      "color": "primary"
+    },
+    {
+      "service_id": "pan_new_application",
+      "service_name": "Permanent Account Number (PAN) Card: New Application",
+      "brief_description": "Application for a new PAN (Instant e-PAN or Physical Card). Mandatory for financial transactions and tax filing.",
+      "governing_body": "Income Tax Department (CBDT)",
+      "required_documents_brief": [
+        "Aadhaar Number (for e-KYC)",
+        "Proof of Identity, Address, and Date of Birth documents for physical card (e.g., Passport, Driving License, EPIC)"
+      ],
+      "official_fee_note": "Instant e-PAN (via Income Tax Portal): FREE. Physical Card (Within India): Approx. ₹107. e-PAN only (via NSDL/Protean): Approx. ₹66.",
+      "otp_required_note": "MANDATORY. Aadhaar-linked mobile number for OTP authentication required for Instant e-PAN and digital submission of Form 49A/49AA.",
+      "estimated_self_service_man_hours": "1–3 Hours (Low effort due to high digitization and e-KYC process).",
+      "official_url_guide": "https://www.incometax.gov.in/iec/foportal/",
+      "icon": "wallet.svg",
+      "color": "primary-pest"
+    },
+    {
+      "service_id": "passport_fresh_normal",
+      "service_name": "Passport: Fresh/Re-issue Application (Normal Scheme)",
+      "brief_description": "Online application preparation for Fresh Passport or Re-issue under the Normal scheme.",
+      "governing_body": "Ministry of External Affairs (MEA)",
+      "required_documents_brief": [
+        "Proof of Present Address (e.g., Utility Bill, Bank Statement, Rent Agreement)",
+        "Proof of Date of Birth (e.g., Birth Certificate, Aadhaar)",
+        "Identity Proof (e.g., PAN Card, EPIC)"
+      ],
+      "official_fee_note": "Normal Adult (36 pages/10 years): ₹1,500. Minor (36 pages/5 years): ₹1,000. Fees must be paid online via the official portal gateway to book the appointment.",
+      "otp_required_note": "OTP required for user registration and login to the Passport Seva Portal. E-Sign/e-KYC optional for faster verification; physical documents are mandatory at the PSK appointment.",
+      "estimated_self_service_man_hours": "3–5 Hours (Time spent on complex form filling, document compilation, and securing the appointment slot).",
+      "official_url_guide": "https://www.passportindia.gov.in/",
+      "icon": "people.svg",
+      "color": "secondary-violet"
+    },
+    {
+      "service_id": "driving_license_learner",
+      "service_name": "Learner's License (LL) Application",
+      "brief_description": "Application for a Learner's License (first step to obtaining a full Driving License).",
+      "governing_body": "State Transport Department (via Sarathi Parivahan)",
+      "required_documents_brief": [
+        "Form-1A (Medical Certificate)",
+        "Self-Attested Proof of Residence",
+        "Self-Attested Proof of Age"
+      ],
+      "official_fee_note": "Varies by class of vehicle (e.g., ₹500, ₹950, or ₹1400). Retest Fee: ₹50.",
+      "otp_required_note": "MANDATORY for application submission and subsequent appointment booking/re-appointment through the Sarathi portal.",
+      "estimated_self_service_man_hours": "2–4 Hours (Time spent on obtaining medical certificates, form filling, and online slot booking for the test).",
+      "official_url_guide": "https://sarathi.parivahan.gov.in/",
+      "icon": "location.svg",
+      "color": "primary"
+    },
+    {
+      "service_id": "pension_ignoaps",
+      "service_name": "Indira Gandhi National Old Age Pension Scheme (IGNOAPS) Application",
+      "brief_description": "Application for the national social security pension scheme (State and Central contributions) for citizens aged 60+ and below the poverty line (BPL).",
+      "governing_body": "National Social Assistance Programme (NSAP)",
+      "required_documents_brief": [
+        "Domicile Certificate",
+        "Age Proof (e.g., Birth Certificate, Medical Board Certificate)",
+        "Residential Proof (e.g., Voter card/Aadhar Card)",
+        "Aadhaar Number and Bank Passbook",
+        "Affidavit attested by Judicial/Executive Magistrate (declaring no other pension received)"
+      ],
+      "official_fee_note": "FREE application process. The scheme provides a central contribution of ₹200–₹500 monthly, plus state supplements.",
+      "otp_required_note": "Likely required for application through online portals (e.g., UMANG/State SSP portal) for secure login and Aadhaar verification.",
+      "estimated_self_service_man_hours": "5–10 Hours (Higher effort due to complex document requirements, including affidavit procurement and attestation, and physical submission requirements in some regions).",
+      "official_url_guide": "https://www.myscheme.gov.in/schemes/nsap-ignoaps",
+      "icon": "calendar.svg",
+      "color": "primary"
+    }
+  ]
+}
+

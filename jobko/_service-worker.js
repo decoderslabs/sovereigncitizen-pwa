@@ -1,5 +1,5 @@
 
-var CACHE_NAME = "enfroApp-sc-v1";
+var CACHE_NAME = "enfroApp-sc-v2";
 var REQUIRED_FILES = [
   "./",
   "./index.html",
@@ -11,6 +11,9 @@ var REQUIRED_FILES = [
   "./js/bootstrap.min.js",
   "./pan-application.html",
   "./passport-prep.html",
+  "./services.html",
+  "./service-detail.html",
+  "./data/services.json",
   "./js/sovereign-i18n.js",
   "./js/sovereign-security.js"
 ];
